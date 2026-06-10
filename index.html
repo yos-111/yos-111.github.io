@@ -1,0 +1,96 @@
+<!-- registro.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Visitantes</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CONTENEDOR -->
+    <section class="visitor-section">
+
+        <div class="visitor-card">
+
+            <h1>Registro de Visitantes</h1>
+
+           <form id="formRegistro">
+
+                <!-- NOMBRE -->
+                <div class="form-group">
+
+                    <label for="nombre">
+                        Nombre:
+                    </label>
+
+                   <input type="text" id="nombre" name="nombre" required>
+
+                </div>
+
+                <!-- CORREO -->
+                <div class="form-group">
+
+                    <label for="correo">
+                        Correo electrónico:
+                    </label>
+
+                    <input type="email" id="correo" name="correo" required>
+
+                </div>
+
+                <!-- COMENTARIOS -->
+                <div class="form-group textarea-group">
+
+                    <label for="comentarios">
+                        Comentarios del visitante:
+                    </label>
+					
+
+                    <textarea 
+                        id="comentarios" 
+                        name="comentarios">
+                    </textarea>
+
+                </div>
+
+                <!-- BOTÓN -->
+                <button type="submit" class="visitor-btn">
+                    Registrar Visitante
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- SCRIPT DE SIMULACIÓN Y REDIRECCIÓN -->
+    <script>
+        document.getElementById('formRegistro').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que busque el archivo PHP inexistente
+
+            // 1. Capturar los valores ingresados en el formulario
+            const nuevoVisitante = {
+                nombre: document.getElementById('nombre').value,
+                correo: document.getElementById('correo').value,
+                comentarios: document.getElementById('comentarios').value,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // 2. Simular almacenamiento en Base de Datos (LocalStorage)
+            let tablaVisitantes = JSON.parse(localStorage.getItem('db_visitantes')) || [];
+            tablaVisitantes.push(nuevoVisitante);
+            localStorage.setItem('db_visitantes', JSON.stringify(tablaVisitantes));
+
+            // 3. Redireccionar al usuario a la página de inicio (index.html)
+            window.location.href = 'inicio.html'; 
+        });
+    </script>
+
+</body>
+</html>
+
